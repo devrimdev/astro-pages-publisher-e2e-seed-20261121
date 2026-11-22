@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Profile from "../components/Profile.astro";
+import { getGitHubEditUrl } from "../lib/github";
+import { labelFromSlug } from "../lib/format";
+
+// The edit link and tab title are derived from the filename (my-section.astro → "My Section").
+const slug = Astro.url.pathname.replace(/\/$/, "").split("/").pop() ?? "";
+const label = labelFromSlug(slug);
+const editUrl = getGitHubEditUrl(`src/pages/${slug}.astro`);
+---
+
+<Layout title={label}>
+  <div class="page-grid">
+    <Profile>
+      {/* Edit this section description here. */}
+      A short description of this section.
+      <div class="edit-btn-wrap" slot="after">
+        <a href={editUrl} target="_blank" rel="noopener" class="edit-btn">Edit this page</a>
+      </div>
+    </Profile>
+    <section>
+      <div class="year-block">
+        <h2>Section title</h2>
+        <p class="note">
+          Add your content here.
+        </p>
+      </div>
+    </section>
+  </div>
+</Layout>

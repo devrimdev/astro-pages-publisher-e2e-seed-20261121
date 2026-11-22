@@ -1,0 +1,53 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Profile from "../components/Profile.astro";
+import { fetchCommits, getGitHubEditUrl, describeFailure } from "../lib/github";
+import { formatDate } from "../lib/format";
+
+const editUrl = getGitHubEditUrl("src/pages/commits.astro");
+const commits = await fetchCommits(30);
+---
+
+<Layout title="Commits" description="Latest commits of this website's repository.">
+  <div class="page-grid">
+    <Profile editUrl={editUrl}>
+      Latest commits from the repository.
+    </Profile>
+
+    <section>
+      <div class="year-block editable-block">
+        <h2>Commits</h2>
+        <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title="Edit this page">✎</a>
+
+        {
+          !commits.ok ? (
+            <p class="note note-error" role="status">{describeFailure(commits)}</p>
+          ) : commits.data.length === 0 ? (
+            <p class="note">No commits yet.</p>
+          ) : (
+            commits.data.map((c) => (
+              <div class="post-row commit-row">
+                {c.url ? (
+                  <a href={c.url} target="_blank" rel="noopener">{c.message || "No commit message"}</a>
+                ) : (
+                  <span>{c.message || "No commit message"}</span>
+                )}
+                <div class="dots" />
+                <span class="commit-meta">
+                  <span class="commit-git-author" title="Git author">{c.authorName}</span>
+                  {c.author && (
+                    <a class="commit-author" href={c.author.url} target="_blank" rel="noopener" title="GitHub account associated with this commit">@{c.author.login}</a>
+                  )}
+                  {c.committerName && c.committerName !== c.authorName && (
+                    <span class="commit-committer" title="Git committer">committed by {c.committerName}</span>
+                  )}
+                  <time datetime={c.date}>{formatDate(c.date)}</time>
+                </span>
+              </div>
+            ))
+          )
+        }
+      </div>
+    </section>
+  </div>
+</Layout>

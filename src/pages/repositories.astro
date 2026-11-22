@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Profile from "../components/Profile.astro";
+import { fetchRepositories, getGitHubEditUrl, getGitHubProfileUrl, describeFailure } from "../lib/github";
+import { formatDate } from "../lib/format";
+
+const editUrl = getGitHubEditUrl("src/pages/repositories.astro");
+const repos = await fetchRepositories();
+---
+
+<Layout title="Repositories" description="Public repositories on GitHub.">
+  <div class="page-grid">
+    <Profile editUrl={editUrl}>
+      Public repositories, loaded from GitHub at build time.
+    </Profile>
+
+    <section>
+      <div class="year-block editable-block">
+        <h2>Repositories</h2>
+        <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title="Edit this page">✎</a>
+
+        {
+          !repos.ok ? (
+            <p class="note note-error" role="status">{describeFailure(repos)}</p>
+          ) : repos.data.length === 0 ? (
+            <p class="note">
+              No public repositories yet. <a href={getGitHubProfileUrl()} target="_blank" rel="noopener">GitHub profile</a>
+            </p>
+          ) : (
+            repos.data.map((r) => (
+              <div class="post-row repository-row">
+                <div class="repository-main">
+                  <a href={r.url} target="_blank" rel="noopener">{r.name}</a>
+                  {r.description && <div class="repository-desc">{r.description}</div>}
+                  {(r.language || r.stars > 0) && (
+                    <div class="repository-meta">
+                      {r.language}
+                      {r.language && r.stars > 0 ? " · " : ""}
+                      {r.stars > 0 ? `★ ${r.stars}` : ""}
+                    </div>
+                  )}
+                </div>
+                <div class="dots" />
+                <time datetime={r.updatedAt}>{formatDate(r.updatedAt)}</time>
+              </div>
+            ))
+          )
+        }
+      </div>
+    </section>
+  </div>
+</Layout>

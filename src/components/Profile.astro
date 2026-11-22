@@ -1,0 +1,32 @@
+---
+// Profile column (avatar + text). The avatar and name come from the owner’s GitHub profile.
+import site from "../content/site.json";
+import { fetchProfile, avatarSrc } from "../lib/github";
+
+interface Props {
+  editUrl?: string;
+  editTitle?: string;
+}
+const { editUrl, editTitle = "Edit this page" } = Astro.props;
+const profile = await fetchProfile();
+const name = profile.ok ? profile.data.name : site.brand;
+---
+
+<aside class="profile">
+  {
+    profile.ok ? (
+      <a href={profile.data.url} class="avatar-link" target="_blank" rel="noopener">
+        <img src={avatarSrc(profile.data.avatarUrl)} alt={`${name} (GitHub profile)`} width="160" height="160" />
+      </a>
+    ) : (
+      <div class="avatar-fallback" role="img" aria-label={name}>
+        {name.charAt(0).toUpperCase()}
+      </div>
+    )
+  }
+  <div class={editUrl ? "profile-text editable-block" : "profile-text"}>
+    <slot />
+    {editUrl && <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title={editTitle}>✎</a>}
+  </div>
+  <slot name="after" />
+</aside>

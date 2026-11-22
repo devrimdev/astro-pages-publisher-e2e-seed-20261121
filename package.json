@@ -1,0 +1,30 @@
+{
+  "name": "astro-pages-publisher",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A fork-friendly Astro starter for publishing static websites with GitHub Pages.",
+  "license": "MIT",
+  "scripts": {
+    "generate": "node scripts/generate-nav.mjs",
+    "check-templates": "node scripts/check-and-restore-templates.mjs",
+    "check-content": "node scripts/check-content.mjs",
+    "dev": "npm run generate && astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "node --test \"tests/**/*.test.mjs\"",
+    "verify": "npm run generate && npm run check-templates && npm run check-content && npm run check && npm test && npm run build && node scripts/check-dist.mjs"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.5",
+    "@fontsource/ibm-plex-sans": "^5.2.5",
+    "astro": "^7.4.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  }
+}

@@ -1,0 +1,65 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getGitHubEditUrl, getGitHubRepositoryUrl } from "../lib/github";
+
+const editUrl = getGitHubEditUrl("src/pages/getting-started.astro");
+const repositoryUrl = getGitHubRepositoryUrl();
+---
+
+<Layout title="Getting started" description="Fork Astro Pages Publisher, configure your content, and publish it with GitHub Pages.">
+  <article class="docs-page editable-block">
+    <p class="eyebrow">Your own site in a few steps</p>
+    <h1>Getting started</h1>
+    <p class="docs-lead">
+      Astro Pages Publisher is designed to be forked. The GitHub owner, repository name,
+      deployment URL, base path, profile links, and edit links are detected at build time.
+      You do not need to replace a hardcoded account name throughout the source.
+    </p>
+
+    <section class="docs-section">
+      <h2>1. Fork and rename the repository</h2>
+      <ol>
+        <li>Open the <a href={repositoryUrl} target="_blank" rel="noopener">repository running this demo</a> and choose <strong>Fork</strong>.</li>
+        <li>Choose your GitHub account or organization as the owner.</li>
+        <li>Rename the fork to the repository name you want to publish, for example <code>my-site</code>.</li>
+        <li>Keep the default branch as <code>main</code>, or update your workflow settings if you deliberately use another branch.</li>
+      </ol>
+      <p>The site URL is generated from the repository context. A project repository is published under <code>https://OWNER.github.io/REPOSITORY/</code>; a repository named <code>OWNER.github.io</code> uses the domain root.</p>
+    </section>
+
+    <section class="docs-section">
+      <h2>2. Enable GitHub Pages</h2>
+      <ol>
+        <li>Open your fork's <strong>Settings → Pages</strong>.</li>
+        <li>Under <strong>Build and deployment</strong>, select <strong>GitHub Actions</strong> as the source.</li>
+        <li>In <strong>Settings → Actions → General</strong>, allow the workflow permissions needed by the deployment and template-restoration jobs. The workflow declares the minimum permissions per job.</li>
+        <li>Push a commit to your default branch, or run <strong>Deploy to GitHub Pages</strong> manually from the Actions tab.</li>
+      </ol>
+      <p>The workflow validates templates and content, runs Astro checks and tests, builds the static site, scans the output, and deploys only the verified artifact. Read <a href="../how-it-works/">How it works</a> for the full pipeline and architecture.</p>
+    </section>
+
+    <section class="docs-section">
+      <h2>3. Personalize the site</h2>
+      <p>Start with <code>src/content/site.json</code>. It controls the brand, description, short introduction, and footer text. It is intentionally separate from the GitHub account identity.</p>
+      <p>Review the included Markdown posts in <code>src/content/blog/</code>: keep them as starter examples, adapt them, or replace them with your own articles. Edit the pages in <code>src/pages/</code> and add footer links under <code>src/pages/footer/</code>. Navigation is generated from the pages that exist.</p>
+      <p>See <a href="../templates/">Templates</a> for the supported starter files and their rename rules.</p>
+    </section>
+
+    <section class="docs-section">
+      <h2>4. Run it locally</h2>
+      <p>Install Node.js 22.23.4 or newer, then clone your fork and install its locked dependencies:</p>
+      <pre><code>npm ci
+npm run dev</code></pre>
+      <p>No <code>.env</code> file is needed for a standard checkout. The project reads the repository from the <code>origin</code> Git remote and the active branch from Git automatically. GitHub Actions uses the repository and branch supplied by its workflow context. An optional <code>.env</code> file is only needed for custom overrides such as a custom domain or repository filters.</p>
+      <p>Before pushing changes, run the full verification pipeline:</p>
+      <pre><code>npm run verify</code></pre>
+    </section>
+
+    <section class="docs-section docs-callout">
+      <h2>Before using this as a public website</h2>
+      <p>The Legal Notice page is included as an editable scaffold, not as ready-to-publish legal copy. Replace every <code>[REQUIRED ...]</code> and <code>[IF APPLICABLE: ...]</code> prompt, remove optional sections that do not apply, and check the rules for your jurisdiction and activity. After review, remove the starter warning and change its status marker from <code>incomplete</code> to <code>complete</code>. The content and build checks reject a completed status while template prompts remain. This workflow does not replace qualified legal advice.</p>
+    </section>
+
+    <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title="Edit this page">✎</a>
+  </article>
+</Layout>

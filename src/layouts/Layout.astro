@@ -1,0 +1,92 @@
+---
+import '../styles/global.css';
+import nav from '../content/nav.json';
+import footer from '../content/footer.json';
+import site from '../content/site.json';
+import { getGitHubEditUrl } from '../lib/github';
+import { pageTitle } from '../lib/format';
+
+interface Props {
+  /** Page-specific part of the title; the brand name is prepended centrally here. */
+  title?: string;
+  description?: string;
+}
+const { title, description = site.description } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Active navigation item: exact path matching (blog posts belong to the Overview).
+const rel = Astro.url.pathname.startsWith(base) ? Astro.url.pathname.slice(base.length) : Astro.url.pathname;
+const current = "/" + rel.replace(/^\/+|\/+$/g, "");
+const isActive = (href: string) =>
+  href === "/" ? current === "/" || current.startsWith("/blog") : current === href;
+
+const editSite = getGitHubEditUrl("src/content/site.json");
+const editSectionTemplate = getGitHubEditUrl("src/pages/.new-section.astro");
+const editFooterTemplate = getGitHubEditUrl("src/pages/footer/.new-footer-section.astro");
+const footerLinks: { label: string; href: string }[] = footer;
+// During a static build, Astro.url may contain a path without BASE_URL. Canonical
+// URLs must contain the final deployment path exactly once.
+const basePath = base;
+let canonicalPath = Astro.url.pathname || "/";
+if (basePath && canonicalPath !== basePath && !canonicalPath.startsWith(`${basePath}/`)) {
+  canonicalPath = `${basePath}${canonicalPath.startsWith("/") ? canonicalPath : `/${canonicalPath}`}`;
+}
+const canonical = Astro.site ? new URL(canonicalPath, Astro.site).toString() : undefined;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <title>{pageTitle(site.brand, title)}</title>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="site-header">
+      <nav class="navigation" aria-label="Main">
+        <span class="editable">
+          <a href={`${base}/`} class="brand">~ $ {site.brand}</a>
+          <a href={editSite} target="_blank" rel="noopener" class="edit-pencil" title="Edit brand">✎</a>
+        </span>
+
+        <div class="nav-links editable">
+          {nav.map((item) => {
+            const href = item.href === "/" ? `${base}/` : `${base}${item.href}`;
+            const active = isActive(item.href);
+            return (
+              <a href={href} class={active ? "active" : undefined} aria-current={active ? "page" : undefined}>
+                {item.label}
+              </a>
+            );
+          })}
+          <a href={editSectionTemplate} target="_blank" rel="noopener" class="edit-pencil" title="+ New section">✎</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="site-main" id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span class="editable">
+          <span>{site.footerText}</span>
+          <a href={editSite} target="_blank" rel="noopener" class="edit-pencil" title="Edit footer">✎</a>
+        </span>
+        <span class="editable">
+          <span class="footer-links">
+            <a href={`${base}/legal`}>Legal Notice</a>
+            {footerLinks.map((item) => (
+              <a href={`${base}${item.href}`}>{item.label}</a>
+            ))}
+          </span>
+          <a href={editFooterTemplate} target="_blank" rel="noopener" class="edit-pencil" title="+ New footer section">✎</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>

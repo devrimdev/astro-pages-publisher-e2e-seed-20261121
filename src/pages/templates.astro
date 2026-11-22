@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getGitHubEditUrl } from "../lib/github";
+
+const editUrl = getGitHubEditUrl("src/pages/templates.astro");
+---
+
+<Layout title="Templates" description="Examples of the standard, feature, collection, footer, and Markdown templates included with Astro Pages Publisher.">
+  <article class="docs-page editable-block">
+    <p class="eyebrow">Reusable building blocks</p>
+    <h1>Templates</h1>
+    <p class="docs-lead">
+      The starter files are kept in <code>templates/</code> as the source of truth.
+      Their hidden live copies are available in the content tree and can be renamed
+      whenever you create something new.
+    </p>
+
+    <div class="template-grid">
+      <section class="template-card">
+        <span class="template-kind">Astro page</span>
+        <h2>New page section</h2>
+        <p>Start a top-level page with the shared layout, GitHub edit link, and filename-derived title.</p>
+        <p class="file-path"><code>src/pages/.new-section.astro</code></p>
+        <p class="rename-rule">Rename to <code>src/pages/about.astro</code></p>
+        <a href="../getting-started/">See how pages become navigation items →</a>
+      </section>
+
+      <section class="template-card">
+        <span class="template-kind">Feature page</span>
+        <h2>Feature / landing page</h2>
+        <p>Use a richer page layout with an introduction, feature cards, supporting sections, and an edit link.</p>
+        <p class="file-path"><code>src/pages/.new-feature-page.astro</code></p>
+        <p class="rename-rule">Rename to <code>src/pages/features.astro</code></p>
+        <p>Useful for product overviews, service pages, and project explanations.</p>
+      </section>
+
+      <section class="template-card">
+        <span class="template-kind">Collection page</span>
+        <h2>Resource / collection page</h2>
+        <p>Show a curated set of resources, projects, tools, or links in a responsive card grid.</p>
+        <p class="file-path"><code>src/pages/.new-resource-page.astro</code></p>
+        <p class="rename-rule">Rename to <code>src/pages/resources.astro</code></p>
+        <p>Useful for directories, link collections, and project indexes.</p>
+      </section>
+
+      <section class="template-card">
+        <span class="template-kind">Footer page</span>
+        <h2>New footer section</h2>
+        <p>Create a page for supporting information such as a privacy policy or acknowledgements.</p>
+        <p class="file-path"><code>src/pages/footer/.new-footer-section.astro</code></p>
+        <p class="rename-rule">Rename to <code>src/pages/footer/privacy-policy.astro</code></p>
+        <p>Its link is generated automatically next to the Legal Notice link.</p>
+      </section>
+
+      <section class="template-card">
+        <span class="template-kind">Markdown post</span>
+        <h2>New blog post</h2>
+        <p>Write a dated article with frontmatter and standard Markdown formatting.</p>
+        <p class="file-path"><code>src/content/blog/.new-post.md</code></p>
+        <p class="rename-rule">Rename to <code>src/content/blog/my-first-post.md</code></p>
+        <p>Posts with valid titles and publication dates appear on the overview page.</p>
+      </section>
+    </div>
+
+    <section class="docs-section">
+      <h2>How the template check works</h2>
+      <ol>
+        <li>Keep the hidden starter copies unchanged until you are ready to create a new page or post.</li>
+        <li>Rename the hidden file before editing it. The new filename becomes the route or post slug.</li>
+        <li>The next workflow run restores the hidden starter copy from <code>templates/</code>.</li>
+        <li>If you intentionally improve a starter template, update its live copy and run <code>npm run check-templates -- --update</code> to synchronize the source copy.</li>
+      </ol>
+      <p>Editing a starter file without renaming it is treated as an error. This keeps the reusable template and the new content separate.</p>
+    </section>
+
+    <section class="docs-section">
+      <h2>Generated navigation</h2>
+      <p><code>scripts/generate-nav.mjs</code> discovers regular Astro pages and footer pages. It ignores dotfiles and underscore-prefixed files, so starter templates do not appear in navigation.</p>
+    </section>
+
+    <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title="Edit this page">✎</a>
+  </article>
+</Layout>

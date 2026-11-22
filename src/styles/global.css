@@ -1,0 +1,934 @@
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+
+:root {
+  color-scheme: dark;
+  --bg: #16181B;
+  --white: #ffffff;
+  --text: #d4d4d8;
+  --muted: #a1a1aa;
+  --border: #27272a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ========== HEADER ========== */
+.site-header {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 2rem 0;
+  width: 100%;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.brand {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1.25rem;
+  color: var(--white);
+  border-bottom: 1px solid transparent;
+  transition: border-color 150ms ease;
+}
+
+.brand:hover {
+  border-color: var(--white);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: var(--text);
+  border-bottom: 1px solid transparent;
+  transition: border-color 150ms ease;
+  font-size: 1rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+/* ========== MAIN ========== */
+.site-main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 3rem;
+  flex: 1;
+  width: 100%;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* ========== PROFILE ========== */
+.profile img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 9999px;
+  object-fit: cover;
+  display: block;
+  background: #24262b;
+}
+
+.profile-text {
+  margin-top: 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.profile-text strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* ========== POSTS ========== */
+.year-block {
+  margin-bottom: 2rem;
+}
+
+.year-block h2 {
+  color: var(--white);
+  font-size: 1.875rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+
+.post-row {
+  margin-bottom: 0.65rem;
+}
+
+.post-row a {
+  color: var(--white);
+  border-bottom: 1px solid transparent;
+  transition: border-color 150ms ease;
+  display: inline;
+  line-height: 1.4;
+}
+
+.post-row a:hover {
+  border-color: var(--white);
+}
+
+.post-row time {
+  display: block;
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin-top: 0.1rem;
+}
+
+/* Desktop: title + dotted line + date */
+@media (min-width: 1024px) {
+  .post-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .post-row a {
+    flex-shrink: 0;
+  }
+
+  .post-row .dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--border);
+    min-width: 1.5rem;
+    height: 1px;
+    margin-bottom: 0.3rem;
+  }
+
+  .post-row time {
+    flex-shrink: 0;
+    margin-top: 0;
+    white-space: nowrap;
+  }
+}
+
+/* ========== FOOTER ========== */
+.site-footer {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+  width: 100%;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 2px solid var(--border);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.footer-inner a:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+/* ========== MOBILE ========== */
+@media (max-width: 1023px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .site-header,
+  .site-main,
+  .site-footer {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .navigation {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* ========== HOVER EDIT PENCIL ========== */
+.editable {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.editable-block {
+  position: relative;
+}
+
+.edit-pencil {
+  position: absolute;
+  top: 0;
+  right: -1.6rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  opacity: 0;
+  color: var(--muted);
+  transition: opacity 150ms ease, color 150ms ease;
+  line-height: 1;
+  font-size: 0.85rem;
+  transform: scaleX(-1);
+  text-decoration: none;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.editable:hover .edit-pencil,
+.editable-block:hover .edit-pencil {
+  opacity: 1;
+}
+
+.edit-pencil:hover {
+  color: var(--white);
+}
+
+/* For block-level elements keep pencil top-right inside */
+.editable-block .edit-pencil {
+  right: 0;
+  top: 0;
+}
+
+/* New post / section small actions under profile */
+.profile-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.profile-actions a {
+  font-size: 0.75rem;
+  color: var(--muted);
+  border-bottom: 1px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.profile-actions a:hover {
+  color: var(--white);
+  border-color: var(--white);
+}
+
+/* nav-links is flex – keep pencil next to last item */
+.nav-links.editable {
+  position: relative;
+  padding-right: 1.4rem;
+}
+.nav-links .edit-pencil {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+}
+
+/* footer legal link */
+.footer-inner .editable {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.footer-inner .edit-pencil {
+  position: static;
+  transform: scaleX(-1);
+  opacity: 0;
+}
+.footer-inner .editable:hover .edit-pencil {
+  opacity: 1;
+}
+
+.footer-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+/* ========== REPOS UNDER BIO ========== */
+.repos {
+  margin-top: 1.75rem;
+  position: relative;
+}
+
+.repos-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+
+.repo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.repo-list a {
+  color: var(--white);
+  font-size: 0.9rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color 150ms ease;
+}
+
+.repo-list a:hover {
+  border-color: var(--white);
+}
+
+.repo-desc {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-top: 0.15rem;
+}
+
+/* ========== CLASSES REPLACING INLINE STYLES (CSP: no style="" attributes) ========== */
+
+/* Muted paragraph (empty states, section text) */
+.note {
+  color: var(--muted);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Legal page */
+.legal-block {
+  max-width: 40rem;
+}
+
+.legal-title {
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.legal-text {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* Blog post page */
+.post-header {
+  margin-bottom: 2rem;
+  max-width: 42rem;
+}
+
+.post-title {
+  color: var(--white);
+  font-size: 1.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.post-date {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.post-body {
+  max-width: 42rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.post-back {
+  margin-top: 3rem;
+  max-width: 42rem;
+}
+
+.post-back a {
+  border-bottom: 1px solid var(--border);
+}
+
+/* Repositories page */
+.repository-row {
+  margin-bottom: 1.1rem;
+}
+
+.repository-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.repository-desc {
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin-top: 0.15rem;
+}
+
+.repository-meta {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  margin-top: 0.15rem;
+}
+
+/* Display the Git author, Git committer, and linked GitHub account separately. */
+.commit-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+}
+
+.commit-git-author,
+.commit-committer,
+.post-row .commit-author {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.post-row .commit-author {
+  color: var(--text);
+}
+
+.commit-meta time {
+  display: inline;
+  margin-top: 0;
+}
+
+/* Error / empty states */
+.note-error {
+  border-left: 2px solid var(--border);
+  padding-left: 0.75rem;
+}
+
+/* Profile avatar link and fallback (no image available) */
+.avatar-link {
+  display: inline-block;
+  border-bottom: none;
+  border-radius: 9999px;
+}
+
+.avatar-fallback {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 9999px;
+  background: #24262b;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.repos-all {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.repos-all:hover {
+  color: var(--white);
+}
+
+/* "Edit this page" button of the section template */
+.edit-btn {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.edit-btn:hover {
+  color: var(--white);
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.edit-btn-wrap {
+  margin-top: 1.5rem;
+}
+
+/* ========== KEYBOARD / FOCUS ========== */
+a:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Edit pencils are invisible until hover – show them for keyboard users too */
+.edit-pencil:focus-visible,
+.editable:focus-within .edit-pencil,
+.editable-block:focus-within .edit-pencil,
+.footer-inner .editable:focus-within .edit-pencil {
+  opacity: 1;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  padding: 0.5rem 0.9rem;
+  background: var(--white);
+  color: #000;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ========== CODE BLOCKS (Prism, class-based – CSP-safe) ========== */
+
+.post-body code {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875em;
+}
+
+.post-body :not(pre) > code {
+  background: #1e2024;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+.post-body pre {
+  background: #1e2024;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.post-body pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #71717a;
+  font-style: italic;
+}
+
+.token.punctuation,
+.token.operator {
+  color: var(--muted);
+}
+
+.token.keyword,
+.token.atrule,
+.token.selector,
+.token.important {
+  color: #c4a7e7;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex {
+  color: #9ccfa4;
+}
+
+.token.number,
+.token.boolean,
+.token.constant,
+.token.symbol {
+  color: #f0b27a;
+}
+
+.token.function,
+.token.class-name,
+.token.tag,
+.token.builtin {
+  color: #8fbcf0;
+}
+
+.token.property,
+.token.attr-name,
+.token.variable {
+  color: #e6c07b;
+}
+
+.token.bold {
+  font-weight: 600;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+/* ========== PROJECT OVERVIEW AND GUIDES ========== */
+.nav-links {
+  flex-wrap: wrap;
+}
+
+.overview-content,
+.docs-page {
+  min-width: 0;
+}
+
+.eyebrow,
+.template-kind {
+  color: var(--muted);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.overview-content > h1,
+.docs-page > h1 {
+  color: var(--white);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  max-width: 48rem;
+  margin: 0.65rem 0 1rem;
+}
+
+.hero-copy,
+.docs-lead {
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 48rem;
+}
+
+.overview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--white);
+  font-size: 0.9rem;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.action-link:hover {
+  border-color: var(--white);
+}
+
+.action-primary {
+  background: #24262b;
+  border-color: #4b4b52;
+}
+
+.feature-grid,
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin: 1.75rem 0 2.5rem;
+}
+
+.feature-card,
+.template-card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.feature-card h2,
+.template-card h2 {
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+}
+
+.feature-card p,
+.template-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.overview-writing {
+  margin-top: 2.5rem;
+}
+
+.section-heading-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.section-heading-row h2 {
+  margin: 0;
+}
+
+.muted-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.writing-year {
+  margin-top: 1.25rem;
+}
+
+.writing-year h3 {
+  color: var(--muted);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-bottom: 0.6rem;
+}
+
+.docs-page {
+  position: relative;
+  max-width: 54rem;
+  margin: 0 auto;
+}
+
+.docs-section {
+  margin-top: 2.5rem;
+  max-width: 48rem;
+}
+
+.docs-section h2 {
+  color: var(--white);
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+
+.docs-section p,
+.docs-section li {
+  color: var(--text);
+  line-height: 1.75;
+  margin-bottom: 0.75rem;
+}
+
+.docs-section ol,
+.docs-section ul {
+  padding-left: 1.4rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.docs-page a:not(.edit-pencil),
+.template-card a {
+  color: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.docs-page code,
+.template-card code {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.85em;
+  overflow-wrap: anywhere;
+}
+
+.docs-page pre {
+  background: #1e2024;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 0.8rem 0 1.25rem;
+  overflow-x: auto;
+  line-height: 1.65;
+}
+
+.docs-page pre code {
+  font-size: 0.85rem;
+}
+
+.template-card .template-kind {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+}
+
+.template-card .file-path {
+  margin-top: 1rem;
+  overflow-wrap: anywhere;
+}
+
+.template-card .rename-rule {
+  color: var(--text);
+  margin-top: 0.45rem;
+}
+
+.template-card > a {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+}
+
+.docs-callout {
+  border-left: 2px solid var(--border);
+  padding: 0.25rem 0 0.25rem 1rem;
+}
+
+@media (max-width: 640px) {
+  .feature-grid,
+  .template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-content > h1,
+  .docs-page > h1 {
+    font-size: 2.15rem;
+  }
+}
+
+/* ========== LEGAL NOTICE TEMPLATE ========== */
+.legal-section {
+  margin-top: 1.8rem;
+}
+
+.legal-section h3 {
+  color: var(--white);
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 0.65rem;
+}
+
+.legal-address {
+  color: var(--text);
+  font-style: normal;
+  line-height: 1.7;
+}
+
+.legal-address p {
+  margin: 0.2rem 0;
+}
+
+.legal-details {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.8fr) minmax(0, 1.7fr);
+  gap: 0.45rem 1rem;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.legal-details dt {
+  color: var(--muted);
+}
+
+.legal-details dd {
+  color: var(--text);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.legal-guidance {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 2rem;
+}
+
+@media (max-width: 38rem) {
+  .legal-details {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .legal-details dd {
+    margin-bottom: 0.65rem;
+  }
+}

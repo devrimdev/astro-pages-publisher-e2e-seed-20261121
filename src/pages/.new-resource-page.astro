@@ -1,0 +1,49 @@
+---
+// Rename .new-resource-page.astro before editing it.
+// The filename becomes the page route and visible title.
+import Layout from "../layouts/Layout.astro";
+import { getGitHubEditUrl } from "../lib/github";
+import { labelFromSlug } from "../lib/format";
+
+const slug = Astro.url.pathname.replace(/\/$/, "").split("/").pop() ?? "";
+const title = labelFromSlug(slug);
+const editUrl = getGitHubEditUrl(`src/pages/${slug}.astro`);
+---
+
+<Layout title={title} description="A curated collection of resources, projects, or links.">
+  <article class="docs-page editable-block">
+    <p class="eyebrow">Collection</p>
+    <h1>{title}</h1>
+    <p class="docs-lead">
+      Introduce this collection. Explain what belongs here and how visitors should use it.
+    </p>
+
+    <div class="template-grid">
+      <section class="template-card">
+        <span class="template-kind">Category one</span>
+        <h2>First resource</h2>
+        <p>Summarize the resource and why it is useful.</p>
+        <p class="file-path"><code>https://example.com</code></p>
+      </section>
+      <section class="template-card">
+        <span class="template-kind">Category two</span>
+        <h2>Second resource</h2>
+        <p>Add another item with a concise description.</p>
+        <p class="file-path"><code>https://example.org</code></p>
+      </section>
+      <section class="template-card">
+        <span class="template-kind">Category three</span>
+        <h2>Third resource</h2>
+        <p>Group related projects, tools, links, or references together.</p>
+        <p class="file-path"><code>https://example.net</code></p>
+      </section>
+    </div>
+
+    <section class="docs-section">
+      <h2>Additional information</h2>
+      <p>Add selection criteria, notes, or instructions for using this collection.</p>
+    </section>
+
+    <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title="Edit this page">✎</a>
+  </article>
+</Layout>

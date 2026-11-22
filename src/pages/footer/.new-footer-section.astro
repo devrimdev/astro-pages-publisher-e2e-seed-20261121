@@ -1,0 +1,23 @@
+---
+// IMPORTANT: Rename the file before committing!
+// Example: .new-footer-section.astro → privacy-policy.astro
+// The filename determines the link label and URL (Privacy Policy, /footer/privacy-policy).
+import Layout from "../../layouts/Layout.astro";
+import { getGitHubEditUrl } from "../../lib/github";
+import { labelFromSlug } from "../../lib/format";
+
+const slug = Astro.url.pathname.replace(/\/$/, "").split("/").pop() ?? "";
+const label = labelFromSlug(slug);
+const editUrl = getGitHubEditUrl(`src/pages/footer/${slug}.astro`);
+---
+
+<Layout title={label}>
+  <div class="editable-block legal-block">
+    <h2 class="legal-title">{label}</h2>
+    {/* Edit this page content here. */}
+    <p class="legal-text">
+      Add your content here.
+    </p>
+    <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title="Edit this page">✎</a>
+  </div>
+</Layout>

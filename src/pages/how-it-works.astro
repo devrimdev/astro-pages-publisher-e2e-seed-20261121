@@ -1,0 +1,112 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getGitHubEditUrl, getGitHubRepositoryUrl } from "../lib/github";
+
+const editUrl = getGitHubEditUrl("src/pages/how-it-works.astro");
+const repositoryUrl = getGitHubRepositoryUrl();
+---
+
+<Layout title="How it works" description="Explore the architecture, content model, GitHub integration, and deployment pipeline behind Astro Pages Publisher.">
+  <article class="docs-page editable-block">
+    <p class="eyebrow">Inside the publisher</p>
+    <h1>How it works</h1>
+    <p class="docs-lead">
+      Astro Pages Publisher keeps the website content, GitHub identity, reusable templates,
+      and deployment process separate. That is what lets the same repository work after a fork
+      or rename without editing account-specific values throughout the source.
+    </p>
+
+    <div class="feature-grid">
+      <section class="feature-card">
+        <h2>Content is editable</h2>
+        <p>Site branding lives in JSON, long-form articles use Markdown, and pages are regular Astro files.</p>
+      </section>
+      <section class="feature-card">
+        <h2>Templates are reusable</h2>
+        <p>Starter files have one canonical copy in <code>templates/</code> and clean hidden working copies.</p>
+      </section>
+      <section class="feature-card">
+        <h2>GitHub context is dynamic</h2>
+        <p>The current owner, repository, branch, and Pages base path come from the build environment.</p>
+      </section>
+      <section class="feature-card">
+        <h2>Deployments are verified</h2>
+        <p>Checks and tests run before a static artifact receives GitHub Pages deployment permissions.</p>
+      </section>
+    </div>
+
+    <section class="docs-section">
+      <h2>1. Separate project identity from site branding</h2>
+      <p>
+        The repository identity is read from GitHub Actions context and validated centrally in
+        <code>src/lib/site-env.mjs</code>. It drives GitHub links, source-edit links, the canonical URL,
+        and the base path used by project sites. The visible brand, description, introduction,
+        and footer text are independently configured in <code>src/content/site.json</code>.
+      </p>
+      <p>
+        A normal repository is published below <code>/REPOSITORY/</code>. A repository named
+        <code>OWNER.github.io</code> is published at the domain root. A custom HTTPS domain can be
+        configured with <code>SITE_URL</code> and <code>SITE_BASE</code>.
+      </p>
+    </section>
+
+    <section class="docs-section">
+      <h2>2. Build the site from content and templates</h2>
+      <p>
+        Articles in <code>src/content/blog/</code> are Markdown files with title and publication-date
+        frontmatter. Pages in <code>src/pages/</code> become routes. The navigation generator discovers
+        regular page files and footer pages, while ignoring hidden starter files and underscore-prefixed files.
+      </p>
+      <p>
+        The <a href="../templates/">Templates guide</a> demonstrates the Markdown post, standard page,
+        footer page, feature-page, and resource-collection starters. Rename a hidden starter before changing its contents;
+        the workflow restores a clean copy from <code>templates/</code> automatically.
+      </p>
+    </section>
+
+    <section class="docs-section">
+      <h2>3. Load repository data at build time</h2>
+      <p>
+        <code>src/lib/github.ts</code> is the single GitHub API integration. It loads the current account
+        profile, public repositories, and recent commits during static generation. Requests use the
+        public API without a personal access token; responses are cached within each build and failures
+        are rendered as explicit status messages rather than silently shown as empty data.
+      </p>
+      <p>
+        Explore the <a href="../repositories/">public repository list</a> and <a href="../commits/">recent commit feed</a>
+        to see how the site reflects the GitHub account associated with the current repository.
+      </p>
+    </section>
+
+    <section class="docs-section">
+      <h2>4. Validate and deploy with GitHub Actions</h2>
+      <ol>
+        <li>Prepare or restore renamed starter files from the canonical templates.</li>
+        <li>Generate navigation and check the editorial content state.</li>
+        <li>Install the locked dependencies, run Astro validation, and execute the test suite.</li>
+        <li>Build the static site and scan the output for leaked secrets and unsafe markup.</li>
+        <li>Upload the verified <code>dist/</code> artifact, then deploy that exact artifact to GitHub Pages.</li>
+      </ol>
+      <p>
+        The preparation job has only the repository write permission needed to restore starter files.
+        The build job is read-only, and the final deployment job receives the Pages deployment permissions.
+      </p>
+      <p>
+        The workflow follows the repository's actual default branch. It does not require the branch to be
+        named <code>main</code>.
+      </p>
+    </section>
+
+    <section class="docs-section">
+      <h2>Try the project</h2>
+      <p>
+        <a href={repositoryUrl} target="_blank" rel="noopener">Open the source repository</a>, fork it,
+        rename the fork if needed, enable GitHub Pages with GitHub Actions, and personalize
+        <code>src/content/site.json</code> plus the example posts.
+      </p>
+      <p><a href="../getting-started/">Follow the setup guide →</a></p>
+    </section>
+
+    <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title="Edit this page">✎</a>
+  </article>
+</Layout>

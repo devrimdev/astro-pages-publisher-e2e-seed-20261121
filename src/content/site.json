@@ -1,0 +1,6 @@
+{
+  "brand": "Astro Pages Publisher",
+  "description": "A reusable Astro starter for content-focused static websites published with GitHub Pages.",
+  "bio": "Build a content-focused static website from your GitHub repository. Configure the brand, publish Markdown, create pages from reusable Astro templates, and deploy through a workflow that validates the result first.",
+  "footerText": "Built with Astro Pages Publisher — a reusable starter for GitHub Pages."
+}

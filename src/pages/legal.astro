@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getGitHubEditUrl } from "../lib/github";
+
+const editUrl = getGitHubEditUrl("src/pages/legal.astro");
+---
+
+<Layout title="Legal Notice">
+  <section class="editable-block legal-block" data-legal-status="incomplete" aria-labelledby="legal-title">
+    <h2 class="legal-title" id="legal-title">Legal Notice</h2>
+
+    <p class="note note-error legal-status-note" role="status">
+      <strong>Starter template — incomplete.</strong>
+      This page contains prompts, not verified operator information. The labels are guidance, not a claim that every field is required everywhere. Check the rules that apply, replace relevant prompts, remove optional fields that do not apply, and review the finished notice before publishing this site.
+    </p>
+
+    <section class="legal-section" aria-labelledby="operator-heading">
+      <h3 id="operator-heading">Website operator</h3>
+      <address class="legal-address">
+        <p>[REQUIRED IN MANY JURISDICTIONS: Full legal name or registered organization]</p>
+        <p>[IF APPLICABLE: Legal form and name of an authorized representative]</p>
+        <p>[REQUIRED IN MANY JURISDICTIONS: Street and building number]</p>
+        <p>[REQUIRED IN MANY JURISDICTIONS: Postal code and city]</p>
+        <p>[REQUIRED IN MANY JURISDICTIONS: Country]</p>
+      </address>
+    </section>
+
+    <section class="legal-section" aria-labelledby="contact-heading">
+      <h3 id="contact-heading">Contact details</h3>
+      <dl class="legal-details">
+        <dt>Email</dt>
+        <dd>[REQUIRED IN MANY JURISDICTIONS: Public contact email address or another legally accepted contact method]</dd>
+        <dt>Telephone or additional contact channel</dt>
+        <dd>[IF APPLICABLE: Contact channel required by the rules that apply to this website]</dd>
+      </dl>
+    </section>
+
+    <section class="legal-section" aria-labelledby="registration-heading">
+      <h3 id="registration-heading">Business and professional information</h3>
+      <p>Keep only the entries that apply to the operator and this website.</p>
+      <dl class="legal-details">
+        <dt>Register</dt>
+        <dd>[IF APPLICABLE: Register name, registering authority or court, and registration number]</dd>
+        <dt>Tax or VAT identification</dt>
+        <dd>[IF APPLICABLE: Identification number required for publication]</dd>
+        <dt>Supervisory or professional authority</dt>
+        <dd>[IF APPLICABLE: Authority, professional body, applicable professional rules, and where they can be accessed]</dd>
+      </dl>
+    </section>
+
+    <section class="legal-section" aria-labelledby="editorial-heading">
+      <h3 id="editorial-heading">Editorial responsibility</h3>
+      <p>[IF APPLICABLE: Name and full postal address of the person legally responsible for editorial content]</p>
+    </section>
+
+    <p class="legal-guidance">
+      Requirements differ by country, operator type, website activity, and audience. The prompts above are a
+      starting structure, not a complete list of legal obligations. Confirm which disclosures apply to you,
+      verify every detail, and obtain qualified advice where necessary. This starter page is not legal advice.
+    </p>
+
+    <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title="Edit Legal Notice">✎</a>
+  </section>
+</Layout>

@@ -1,0 +1,26 @@
+[
+  {
+    "label": "Overview",
+    "href": "/"
+  },
+  {
+    "label": "Getting Started",
+    "href": "/getting-started"
+  },
+  {
+    "label": "How It Works",
+    "href": "/how-it-works"
+  },
+  {
+    "label": "Templates",
+    "href": "/templates"
+  },
+  {
+    "label": "Commits",
+    "href": "/commits"
+  },
+  {
+    "label": "Repositories",
+    "href": "/repositories"
+  }
+]

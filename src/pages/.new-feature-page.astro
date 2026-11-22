@@ -1,0 +1,54 @@
+---
+// Rename .new-feature-page.astro before editing it.
+// The filename becomes the page route and visible title.
+import Layout from "../layouts/Layout.astro";
+import { getGitHubEditUrl } from "../lib/github";
+import { labelFromSlug } from "../lib/format";
+
+const slug = Astro.url.pathname.replace(/\/$/, "").split("/").pop() ?? "";
+const title = labelFromSlug(slug);
+const editUrl = getGitHubEditUrl(`src/pages/${slug}.astro`);
+---
+
+<Layout title={title} description="Describe this feature, product, service, or project page.">
+  <article class="docs-page editable-block">
+    <p class="eyebrow">Feature overview</p>
+    <h1>{title}</h1>
+    <p class="docs-lead">
+      Replace this introduction with a concise explanation of the page topic,
+      who it is for, and what visitors can learn or do here.
+    </p>
+
+    <div class="feature-grid">
+      <section class="feature-card">
+        <h2>First capability</h2>
+        <p>Explain one useful capability or benefit in a few sentences.</p>
+      </section>
+      <section class="feature-card">
+        <h2>Second capability</h2>
+        <p>Describe another part of the experience, workflow, or service.</p>
+      </section>
+      <section class="feature-card">
+        <h2>Third capability</h2>
+        <p>Add a concrete example, use case, or important detail.</p>
+      </section>
+      <section class="feature-card">
+        <h2>Next step</h2>
+        <p>Tell visitors how to explore further or get started.</p>
+      </section>
+    </div>
+
+    <section class="docs-section">
+      <h2>How it works</h2>
+      <p>Use this section for a longer explanation, instructions, or a worked example.</p>
+      <pre><code>// Replace this with a useful example for your project</code></pre>
+    </section>
+
+    <section class="docs-section">
+      <h2>Learn more</h2>
+      <p>Add links to related pages, documentation, or resources.</p>
+    </section>
+
+    <a href={editUrl} target="_blank" rel="noopener" class="edit-pencil" title="Edit this page">✎</a>
+  </article>
+</Layout>
